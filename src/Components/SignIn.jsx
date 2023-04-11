@@ -2,11 +2,12 @@ import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 
-import { AiFillEye ,AiFillEyeInvisible } from 'react-icons/ai';
+
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../ApiCalls/Api";
 import { login } from "../app/features/user/userSlice";
+import toast, { Toaster } from 'react-hot-toast';
 
 const LoginSignup = () => {
  
@@ -16,6 +17,7 @@ const LoginSignup = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const [isLoading, setIsLoading] = useState(false);
+  const toastMessage = (message) => toast(message);
 
   
 
@@ -40,7 +42,8 @@ const LoginSignup = () => {
 
     }).catch((err) => {
       
-      console.log(err);
+      toastMessage(`Invalid email or password`);
+     
       setIsLoading(false);
     });
 
@@ -102,6 +105,7 @@ const LoginSignup = () => {
           </p>
         </form>
       </div>
+      <Toaster />
     </div>
   );
 };

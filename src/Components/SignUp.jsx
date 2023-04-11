@@ -6,6 +6,7 @@ import { BASE_URL } from "../ApiCalls/Api";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../app/features/user/userSlice";
+import toast, { Toaster } from 'react-hot-toast';
 
 const Signup = () => {
  
@@ -17,6 +18,7 @@ const Signup = () => {
   const user = useSelector((state) => state.user);
   const dispatch =useDispatch();
   const navigate = useNavigate();
+  const toastMessage = (message) => toast(message);
 
  
 
@@ -35,15 +37,18 @@ const Signup = () => {
     axios.post(`${BASE_URL}/api/v1/register`, data, config).then((res) => {
       dispatch(login(res.data));
       setIsLoading(false);
-      console.log(user);
-      console.log(document.cookie);
-      console.log("cookie");
+
+     
+      
+     
 
     }).catch((err) => {
       
       console.log(err);
       setIsLoading(false);
+      toastMessage("user already exist!")
     });
+   
 
 
   };
@@ -117,6 +122,7 @@ const Signup = () => {
         </p>
 
       </div>
+      <Toaster/>
     </div>
   );
 };

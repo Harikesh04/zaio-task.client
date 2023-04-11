@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from "../ApiCalls/Api";
+import toast, { Toaster } from 'react-hot-toast';
 import axios from "axios";
 import { hoursCommited, logout } from '../app/features/user/userSlice';
 
@@ -14,6 +15,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 
 
 
+
 const Schedule = () => {
   const user = useSelector((state) => state.user);
   const [courses, setCourses] = useState([]);
@@ -21,13 +23,14 @@ const Schedule = () => {
   const course = useSelector((state) => state.course);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const toastMessage = (message) => toast(message);
 
   function handleClick() {
     axios.get(`${BASE_URL}/api/v1/logout`, { withCredentials: true }).then((res) => {
 
       dispatch(logout(res.data));
 
-      console.log("logged out");
+      toastMessage("logged out successfully!")
       navigate("/");
 
     }).catch((err) => {
@@ -38,7 +41,7 @@ const Schedule = () => {
 
 
   }
-  console.log(user);
+ 
 
   const today = new Date();
   const year = today.getFullYear();
@@ -49,7 +52,7 @@ const Schedule = () => {
   const startDate = `${year}-${formattedMonth}-${formattedDay}`;
 
   useEffect(() => {
-    console.log(document.cookie);
+  
     console.log("cookie");
 
 
@@ -137,6 +140,7 @@ const Schedule = () => {
 
        <button className='flex justify-center px-4 py-2 mb-10 font-semibold text-blue-600 border-2 border-blue-600 rounded-full cursor-pointer hover:bg-blue-600 hover:text-white' onClick={handleClick}>Log Out</button>
       </div>
+      <Toaster/>
 
     </div>
      

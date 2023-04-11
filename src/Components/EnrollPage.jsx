@@ -2,6 +2,8 @@ import React, { useRef } from 'react'
 import { hoursCommited } from '../app/features/user/userSlice';
 import { useDispatch, useSelector } from "react-redux";
 import {useNavigate} from "react-router-dom"
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const EnrollPage = () => {
 
@@ -9,13 +11,15 @@ const EnrollPage = () => {
   const dispatch = useDispatch();
   const user = useSelector((state)=>state.user);
   const navigate = useNavigate();
+  const toastMessage = (message) => toast(message);
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(hoursRef.current);
+   
     dispatch(hoursCommited(hoursRef.current));
-    console.log(user);
+    
     navigate("/schedule");
+    // toastMessage("Congrats ! you have successfully enrolled")
    
   }
 
@@ -24,7 +28,14 @@ const EnrollPage = () => {
   }
 
   return (
+    <>
+   
+    <div className='p-5 bg-blue-500'>
+
+<div className='flex justify-center font-semibold text-white'>Hi 👋 {user.loginInfo.user.name} ! Choose your and course and time you want to commit</div>
+</div>
     <div className="flex items-center content-center justify-center h-screen bg-gray-100 bg-midnight">
+      
       <form className="w-full max-w-md p-6 bg-white rounded-lg shadow-2xl" onSubmit={handleSubmit}>
         <div className="mb-4">
           <div className="flex justify-center mb-6 text-2xl font-medium text-blue-500">Course</div>
@@ -58,7 +69,9 @@ const EnrollPage = () => {
 
           </div>
       </form>
+      <Toaster/>
     </div>
+    </>
   );
 }
 
