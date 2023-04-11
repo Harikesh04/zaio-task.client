@@ -31,10 +31,14 @@ const LoginSignup = () => {
       password: passwordRef.current.value
     }
     console.log(JSON.stringify(data));
-    axios.post(`${BASE_URL}/api/v1/login`, data).then((res) => {
+    const config = { headers: { "Content-Type": "application/json" }, withCredentials: true };
+   
+    axios.post(`${BASE_URL}/api/v1/login`, data,config).then((res) => {
       dispatch(login(res.data));
       setIsLoading(false);
       console.log(user);
+      console.log(document.cookie);
+      console.log("cookie");
 
     }).catch((err) => {
       

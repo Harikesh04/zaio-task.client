@@ -33,10 +33,14 @@ const Signup = () => {
       password: passwordRef.current.value
     }
     console.log(JSON.stringify(data));
-    axios.post(`${BASE_URL}/api/v1/register`, data).then((res) => {
+    const config = { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true };
+   
+    axios.post(`${BASE_URL}/api/v1/register`, data, config).then((res) => {
       dispatch(login(res.data));
       setIsLoading(false);
       console.log(user);
+      console.log(document.cookie);
+      console.log("cookie");
 
     }).catch((err) => {
       

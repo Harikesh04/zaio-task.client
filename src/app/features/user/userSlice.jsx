@@ -24,6 +24,7 @@ export const userSlice = createSlice({
         logout: (state) => {
             state.loginInfo = null;
             state.isAuthenticated = false;
+            state.hoursCommited=0;
         },
         hoursCommited: (state,hours)=>{
             state.hoursCommited=hours.payload;
