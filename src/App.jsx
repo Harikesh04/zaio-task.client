@@ -27,8 +27,8 @@ function App() {
         <Routes>
           <Route path="/" element={user.isAuthenticated?<Navigate to="/enroll" />:<SignIn />} />
           <Route path="/signup" element={user.isAuthenticated?<Navigate to="/enroll" />:<SignUp />} />
-          <Route path="/enroll" element={<Enroll />} />
-          <Route path="/schedule" element={< Schedule/>} />
+          <Route path="/enroll" element={user.isAuthenticated?<Enroll />:<Navigate to="/" />} />
+          <Route path="/schedule" element={user.isAuthenticated?< Schedule/>:<Navigate to="/"/>} />
         </Routes>
 
 
