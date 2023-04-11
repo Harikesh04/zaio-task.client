@@ -8,6 +8,7 @@ import axios from "axios";
 import { BASE_URL } from "../ApiCalls/Api";
 import { login } from "../app/features/user/userSlice";
 import toast, { Toaster } from 'react-hot-toast';
+import Loader from "./Loader/Loader"
 
 const LoginSignup = () => {
  
@@ -36,9 +37,7 @@ const LoginSignup = () => {
     axios.post(`${BASE_URL}/api/v1/login`, data,config).then((res) => {
       dispatch(login(res.data));
       setIsLoading(false);
-      console.log(user);
-      console.log(document.cookie);
-      console.log("cookie");
+     
 
     }).catch((err) => {
       
@@ -93,7 +92,7 @@ const LoginSignup = () => {
 
             type="submit"
           >
-            {isLoading ? "loading" : "Sign In"}
+            {isLoading ? <Loader /> : "Sign In"}
           </button>
 
           </div>
