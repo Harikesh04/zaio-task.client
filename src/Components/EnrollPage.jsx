@@ -24,32 +24,39 @@ const EnrollPage = () => {
   }
 
   return (
-    <div className="flex items-center content-center justify-center h-screen bg-blue-700">
-      <form className="px-8 py-6 bg-white rounded shadow-md" onSubmit={handleSubmit}>
+    <div className="flex items-center content-center justify-center h-screen bg-gray-100 bg-midnight">
+      <form className="w-full max-w-md p-6 bg-white rounded-lg shadow-2xl" onSubmit={handleSubmit}>
         <div className="mb-4">
-          <div className="block mb-2 font-bold text-gray-700">Course</div>
-          <select  className="block w-full p-2 border rounded form-select">
+          <div className="flex justify-center mb-6 text-2xl font-medium text-blue-500">Course</div>
+          <label className="block mb-2 text-lg">Course</label>
+          <select  className="block w-full p-2 border border-blue-600 rounded form-select">
             <option value="java">Java</option>
           </select>
         </div>
         <div className="mb-4">
-          <label className="block mb-2 font-bold text-gray-700">Hours willing to commit</label>
+          <label className="block mb-2 text-lg ">Hours willing to commit</label>
           <select
             
-            className="block w-full p-2 border rounded form-select"
+            className="block w-full p-2 border border-blue-600 rounded form-select"
             onChange={handleHoursChange}
           >
+            
             <option value="2">2 hours per day</option>
             <option value="4">4 hours per day</option>
             <option value="6">6 hours per day</option>
           </select>
 
         </div>
-        <div className="flex items-center justify-between">
-          <button className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700" type="submit">
+        <div className="flex justify-center ">
+          <button
+            className="px-4 py-2 mt-5 font-semibold text-blue-600 border-2 border-blue-600 rounded-full cursor-pointer hover:bg-blue-600 hover:text-white"
+
+           
+          >
             Enroll
           </button>
-        </div>
+
+          </div>
       </form>
     </div>
   );

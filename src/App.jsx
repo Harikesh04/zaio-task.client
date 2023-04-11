@@ -27,7 +27,6 @@ function App() {
         <Routes>
           <Route path="/" element={user.isAuthenticated?<Navigate to="/enroll" />:<SignIn />} />
           <Route path="/signup" element={user.isAuthenticated?<Navigate to="/enroll" />:<SignUp />} />
-
           <Route path="/enroll" element={<Enroll />} />
           <Route path="/schedule" element={< Schedule/>} />
         </Routes>

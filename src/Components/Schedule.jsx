@@ -5,6 +5,7 @@ import { BASE_URL } from "../ApiCalls/Api";
 import axios from "axios";
 import { hoursCommited, logout } from '../app/features/user/userSlice';
 
+
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
@@ -37,6 +38,7 @@ const Schedule = () => {
 
 
   }
+  console.log(user);
 
   const today = new Date();
   const year = today.getFullYear();
@@ -46,11 +48,6 @@ const Schedule = () => {
   const formattedDay = day.toString().padStart(2, '0');
   const startDate = `${year}-${formattedMonth}-${formattedDay}`;
 
-
-
-
-
-
   useEffect(() => {
     console.log(document.cookie);
     console.log("cookie");
@@ -59,44 +56,14 @@ const Schedule = () => {
     axios.get(`${BASE_URL}/api/v1/days/course?Date=${startDate}&hours=${user.hoursCommited}`, {
       withCredentials: true,
     }).then((res) => {
-
-
-      console.log("got data");
       setCourses(res.data.filteredCourses);
-
-
     }).catch((err) => {
-
       console.log(err);
-
     });
 
 
   }, [])
 
-  useEffect(() => {
-
-    axios.get(`${BASE_URL}/api/v1/me`, {
-      withCredentials: true,
-    }).then((res) => {
-      console.log("fetched user info successfully");
-      setUserInfo(res.data.user);
-      console.log(userInfo);
-
-
-
-
-
-    }).catch((err) => {
-
-      console.log(err);
-
-    });
-
-
-
-
-  }, [])
 
   const eventContent = (arg) => {
     return (
@@ -121,11 +88,34 @@ const Schedule = () => {
       </div>
     );
   };
+  const CustomHeader = ({title}) => {
+    return (
+      <div className="fc-toolbar-title">{title}</div>
+    );
+  };
+  const headerToolbarOptions = {
+    left: 'prev',
+    center: 'title',
+    right:'next,today'
+    
+   
+  };
+  const calendarOptions = {
+    plugins: [dayGridPlugin],
+    weekNumberCalculation: 'ISO',
+    firstDay: 1,
+    aspectRatio: 1
+  };
 
 
   return (
     <>
-      <button onClick={handleClick}>Log Out</button>
+    <div>
+      <div className='p-5 bg-blue-500'>
+
+      <div className='flex justify-center font-semibold text-white'>Hi 👋 {user.loginInfo.user.name} ! Complete your daily task here</div>
+      </div>
+      <div className='mt-10'>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
@@ -135,8 +125,22 @@ const Schedule = () => {
         eventMaxStack={4}
         eventContent={eventContent}
         height="80vh"
+        headerToolbar={headerToolbarOptions}
+        customHeader={CustomHeader}
+        {...calendarOptions}
 
       />
+
+      </div>
+    
+      <div className='flex justify-center mt-5 '>
+
+       <button className='flex justify-center px-4 py-2 mb-10 font-semibold text-blue-600 border-2 border-blue-600 rounded-full cursor-pointer hover:bg-blue-600 hover:text-white' onClick={handleClick}>Log Out</button>
+      </div>
+
+    </div>
+     
+     
 
 
 
